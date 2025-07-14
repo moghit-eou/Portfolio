@@ -242,17 +242,6 @@ console.log(`
 
 // Download resume function
 function downloadResume() {
-    // You can replace this with the actual path to your resume file
     const resumeUrl = 'path/to/your/resume.pdf'; // Replace with actual resume file path
-    
-    // For now, we'll show an alert since no actual resume file exists yet
     alert('Resume download functionality - Please add your resume file path in the downloadResume() function');
-    
-    // Uncomment the following lines when you have a resume file:
-    // const link = document.createElement('a');
-    // link.href = resumeUrl;
-    // link.download = 'Your_Name_Resume.pdf';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
 }
