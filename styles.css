@@ -241,7 +241,7 @@ p {
 
 /* Sections */
 .section {
-    padding: 100px 0;
+    padding: 50px 0; /* Reduced from 100px 0 */
 }
 
 .section-alt {
@@ -251,7 +251,7 @@ p {
 .section-title {
     font-size: clamp(2rem, 4vw, 2.5rem);
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Reduced from 3rem */
     position: relative;
 }
 
@@ -281,6 +281,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -30px; /* Move image up by 30px, adjust as needed */
 }
 
 .about-contact-info {
@@ -288,7 +289,7 @@ p {
     flex-direction: row;
     align-items: center;
     gap: 2.5rem;
-    justify-content: center;
+    justify-content: flex-start; /* Changed from center to flex-start */
     margin-top: 2rem;
     flex-wrap: wrap;
 }
@@ -303,9 +304,15 @@ p {
 
 .contact-icon {
     font-size: 1.2rem;
-    color: var(--accent);
+    color: var(--accent); /* Or use any color you want, e.g. #64ffda */
     display: flex;
     align-items: center;
+}
+
+.contact-icon svg {
+    color: inherit;
+    fill: currentColor;
+    vertical-align: middle;
 }
 
 .contact-link {

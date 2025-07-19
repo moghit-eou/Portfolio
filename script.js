@@ -239,9 +239,3 @@ console.log(`
 🎯 Built with vanilla HTML, CSS, and JavaScript
 💡 Interested in collaborating? Let's connect!
 `);
-
-// Download resume function
-function downloadResume() {
-    const resumeUrl = 'path/to/your/resume.pdf'; // Replace with actual resume file path
-    alert('Resume download functionality - Please add your resume file path in the downloadResume() function');
-}
