@@ -497,7 +497,7 @@ p {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 3000px;
     margin: 0 auto;
 }
 
