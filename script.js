@@ -57,16 +57,9 @@ function updateActiveNavLink() {
         const sectionId = section.getAttribute('id');
 
         if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-            // Remove active class from all nav links
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Add active class to current section's nav link
+            navLinks.forEach(link => link.classList.remove('active'));
             const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
+            if (activeLink) activeLink.classList.add('active');
         }
     });
 }
@@ -105,7 +98,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Update the observe elements to include certificate cards
 const observeElements = document.querySelectorAll('.timeline-item, .experience-card, .project-card, .interest-card, .certificate-card');
 observeElements.forEach(el => {
     el.style.opacity = '0';
@@ -114,29 +106,18 @@ observeElements.forEach(el => {
     observer.observe(el);
 });
 
-// Add stagger animation to project and interest cards
+// Add stagger animation
 const projectCards = document.querySelectorAll('.project-card');
 const interestCards = document.querySelectorAll('.interest-card');
-
-projectCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.1}s`;
-});
-
-interestCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.1}s`;
-});
-
-// Add stagger animation to certificate cards
 const certificateCards = document.querySelectorAll('.certificate-card');
-certificateCards.forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.1}s`;
-});
 
-// Add typing effect to hero subtitle (optional enhancement)
+projectCards.forEach((card, index) => card.style.transitionDelay = `${index * 0.1}s`);
+interestCards.forEach((card, index) => card.style.transitionDelay = `${index * 0.1}s`);
+certificateCards.forEach((card, index) => card.style.transitionDelay = `${index * 0.1}s`);
+
+// Typing effect
 function typeWriter(element, text, speed = 100) {
     let i = 0;
-    element.innerHTML = '';
-    
     function typing() {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
@@ -144,50 +125,49 @@ function typeWriter(element, text, speed = 100) {
             setTimeout(typing, speed);
         }
     }
-    
     typing();
 }
 
 // Initialize typing effect when page loads
 window.addEventListener('load', () => {
     const heroSubtitle = document.querySelector('.hero-subtitle');
-    const originalText = heroSubtitle.textContent;
-    
+    const originalText = heroSubtitle.textContent.trim();
+
+    // Clear immediately so text doesn't flash first
+    heroSubtitle.textContent = '';
+
     setTimeout(() => {
         typeWriter(heroSubtitle, originalText, 80);
     }, 1500);
 });
 
-// Add parallax effect to hero section
+// Parallax effect
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
     const rate = scrolled * -0.5;
-    
     if (hero) {
         hero.style.transform = `translateY(${rate}px)`;
     }
 });
 
-// Add hover effects to skill and tech tags
+// Hover effects for tags
 const tags = document.querySelectorAll('.skill-tag, .tech-tag');
 tags.forEach(tag => {
     tag.addEventListener('mouseenter', function() {
         this.style.transform = 'scale(1.05)';
         this.style.backgroundColor = 'rgba(100, 255, 218, 0.2)';
     });
-    
     tag.addEventListener('mouseleave', function() {
         this.style.transform = 'scale(1)';
         this.style.backgroundColor = 'rgba(100, 255, 218, 0.1)';
     });
 });
 
-// Add click animation to buttons
+// Click ripple effect on buttons
 const buttons = document.querySelectorAll('.btn');
 buttons.forEach(button => {
     button.addEventListener('click', function(e) {
-        // Create ripple effect
         const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
@@ -200,21 +180,14 @@ buttons.forEach(button => {
         ripple.classList.add('ripple');
         
         this.appendChild(ripple);
-        
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
+        setTimeout(() => ripple.remove(), 600);
     });
 });
 
-// Add CSS for ripple effect
+// CSS for ripple effect
 const style = document.createElement('style');
 style.textContent = `
-    .btn {
-        position: relative;
-        overflow: hidden;
-    }
-    
+    .btn { position: relative; overflow: hidden; }
     .ripple {
         position: absolute;
         border-radius: 50%;
@@ -223,17 +196,13 @@ style.textContent = `
         animation: ripple-animation 0.6s linear;
         pointer-events: none;
     }
-    
     @keyframes ripple-animation {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
+        to { transform: scale(4); opacity: 0; }
     }
 `;
 document.head.appendChild(style);
 
-// Console welcome message
+// Console message
 console.log(`
 🚀 Welcome to my portfolio!
 🎯 Built with vanilla HTML, CSS, and JavaScript
