@@ -117,14 +117,18 @@ projectCards.forEach((card, index) => (card.style.transitionDelay = `${index * 0
 interestCards.forEach((card, index) => (card.style.transitionDelay = `${index * 0.1}s`))
 certificateCards.forEach((card, index) => (card.style.transitionDelay = `${index * 0.1}s`))
 
-// Typing effect
-function typeWriter(element, text, speed = 100) {
+function typeWriter(element, text, speed = 50) {
   let i = 0
+  element.innerHTML = ""
+
   function typing() {
     if (i < text.length) {
       element.innerHTML += text.charAt(i)
       i++
       setTimeout(typing, speed)
+    } else {
+      // Add blinking cursor effect after typing is complete
+      element.innerHTML += '<span class="cursor">|</span>'
     }
   }
   typing()
@@ -139,8 +143,8 @@ window.addEventListener("load", () => {
   heroSubtitle.textContent = ""
 
   setTimeout(() => {
-    typeWriter(heroSubtitle, originalText, 80)
-  }, 1500)
+    typeWriter(heroSubtitle, originalText, 50)
+  }, 1000)
 })
 
 // Parallax effect
