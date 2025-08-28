@@ -11,7 +11,7 @@ html {
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #0a192f;
+  background-color: #0a192f; /* fallback if canvas isn't available */
   color: #e6f1ff;
   line-height: 1.6;
   overflow-x: hidden;
@@ -147,7 +147,9 @@ p {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  /* remove gradient; let cosmos show through */
+  background: transparent !important;
+  z-index: 1; /* above canvas */
 }
 
 .hero-container {
@@ -247,10 +249,14 @@ p {
 /* Sections */
 .section {
   padding: 50px 0; /* Reduced from 100px 0 */
+  background: transparent !important; /* let cosmos show */
+  position: relative;
+  z-index: 1;
 }
 
 .section-alt {
-  background: var(--bg-secondary);
+  /* previously had a solid background; remove it */
+  background: transparent !important;
 }
 
 .section-title {
@@ -755,9 +761,11 @@ p {
 
 /* Footer */
 .footer {
-  background: #081220;
+  background: #081220; /* footer can keep a solid for readability */
   padding: 3rem 0 1.5rem;
   border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1; /* above canvas */
 }
 
 .footer-content {
@@ -1079,7 +1087,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: -1; /* behind all content */
   background: radial-gradient(ellipse at center, #0a192f 0%, #020c1b 100%);
 }
 
