@@ -162,11 +162,11 @@ const tags = document.querySelectorAll(".skill-tag, .tech-tag")
 tags.forEach((tag) => {
   tag.addEventListener("mouseenter", function () {
     this.style.transform = "scale(1.05)"
-    this.style.backgroundColor = "rgba(100, 255, 218, 0.2)"
+    this.style.backgroundColor = "rgba(6, 214, 160, 0.2)"
   })
   tag.addEventListener("mouseleave", function () {
     this.style.transform = "scale(1)"
-    this.style.backgroundColor = "rgba(100, 255, 218, 0.1)"
+    this.style.backgroundColor = "rgba(6, 214, 160, 0.1)"
   })
 })
 
@@ -243,7 +243,7 @@ socialRippleStyle.textContent = `
     .social-ripple {
         position: absolute;
         border-radius: 50%;
-        background: rgba(100, 255, 218, 0.3);
+        background: rgba(6, 214, 160, 0.3);
         transform: scale(0);
         animation: social-ripple-animation 0.6s linear;
         pointer-events: none;
@@ -254,16 +254,18 @@ socialRippleStyle.textContent = `
 `
 document.head.appendChild(socialRippleStyle)
 
-// Cosmos background animation
 class CosmosBackground {
   constructor() {
     this.canvas = document.getElementById("cosmos-canvas")
     this.ctx = this.canvas.getContext("2d")
     this.stars = []
-    this.numStars = 150
+    this.numStars = 200 // Increased star count
+    this.particles = [] // Added particles for extra effects
+    this.numParticles = 50
 
     this.init()
     this.createStars()
+    this.createParticles()
     this.animate()
 
     window.addEventListener("resize", () => this.init())
@@ -284,13 +286,43 @@ class CosmosBackground {
         speed: Math.random() * 0.5 + 0.1,
         opacity: Math.random() * 0.8 + 0.2,
         twinkle: Math.random() * 0.02 + 0.005,
+        color: Math.random() > 0.8 ? "#06d6a0" : "#64ffda",
+      })
+    }
+  }
+
+  createParticles() {
+    this.particles = []
+    for (let i = 0; i < this.numParticles; i++) {
+      this.particles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        size: Math.random() * 1 + 0.5,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        opacity: Math.random() * 0.3 + 0.1,
+        pulse: Math.random() * 0.02 + 0.01,
       })
     }
   }
 
   animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    const gradient = this.ctx.createRadialGradient(
+      this.canvas.width / 2,
+      this.canvas.height / 2,
+      0,
+      this.canvas.width / 2,
+      this.canvas.height / 2,
+      this.canvas.width,
+    )
+    gradient.addColorStop(0, "#0f172a")
+    gradient.addColorStop(0.5, "#1e293b")
+    gradient.addColorStop(1, "#020c1b")
 
+    this.ctx.fillStyle = gradient
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+
+    // Animate stars
     this.stars.forEach((star) => {
       // Move stars down slowly
       star.y += star.speed
@@ -308,16 +340,40 @@ class CosmosBackground {
       // Draw star
       this.ctx.beginPath()
       this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
-      this.ctx.fillStyle = `rgba(100, 255, 218, ${star.opacity})`
+      this.ctx.fillStyle = `${star.color}${Math.floor(star.opacity * 255)
+        .toString(16)
+        .padStart(2, "0")}`
       this.ctx.fill()
 
-      // Add glow effect for larger stars
       if (star.size > 1.5) {
         this.ctx.beginPath()
-        this.ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2)
-        this.ctx.fillStyle = `rgba(100, 255, 218, ${star.opacity * 0.1})`
+        this.ctx.arc(star.x, star.y, star.size * 3, 0, Math.PI * 2)
+        this.ctx.fillStyle = `${star.color}${Math.floor(star.opacity * 0.1 * 255)
+          .toString(16)
+          .padStart(2, "0")}`
         this.ctx.fill()
       }
+    })
+
+    this.particles.forEach((particle) => {
+      particle.x += particle.speedX
+      particle.y += particle.speedY
+
+      // Wrap particles around screen
+      if (particle.x > this.canvas.width) particle.x = 0
+      if (particle.x < 0) particle.x = this.canvas.width
+      if (particle.y > this.canvas.height) particle.y = 0
+      if (particle.y < 0) particle.y = this.canvas.height
+
+      // Pulsing effect
+      particle.opacity += Math.sin(Date.now() * particle.pulse) * 0.005
+      particle.opacity = Math.max(0.05, Math.min(0.4, particle.opacity))
+
+      // Draw particle
+      this.ctx.beginPath()
+      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+      this.ctx.fillStyle = `rgba(6, 214, 160, ${particle.opacity})`
+      this.ctx.fill()
     })
 
     requestAnimationFrame(() => this.animate())
@@ -329,8 +385,11 @@ window.addEventListener("load", () => {
   new CosmosBackground()
 })
 
-// Console message
-console.log(`🚀 Welcome to my portfolio!
-🎯 Built with vanilla HTML, CSS, and JavaScript
-💡 Interested in collaborating? Let's connect!
+console.log(`
+╔══════════════════════════════════════════════════════════════╗
+║  🚀 Welcome to my cyberpunk portfolio!                      ║
+║  🎯 Built with vanilla HTML, CSS, and JavaScript            ║
+║  💡 Interested in collaborating? Let's connect!             ║
+║  ⚡ Powered by JetBrains Mono & Slate Cyan aesthetics      ║
+╚══════════════════════════════════════════════════════════════╝
 `)
