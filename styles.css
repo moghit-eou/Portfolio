@@ -1406,23 +1406,49 @@ p {
   color: #ea4335;
 }
 
-/* Style only the Codeforces button */
-.codeforces-link {
-  display: inline-block;
-  text-align: left;
-  padding: 8px 12px;
-  border: 1px solid #22d3ee;
-  border-radius: 6px;
-  background-color: transparent;
-  color: #22d3ee;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  margin-bottom: 12px;
-  margin-right: 0px;
+.cp-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 20px;
 }
 
+.cp-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+
+
 .codeforces-link:hover {
-  background-color: #22d3ee;
-  color: #0f172a;
+  border-bottom-color: #f5a623;
+}
+
+.atcoder-link:hover {
+  border-bottom-color: #4a9eff;
+}
+
+.codeforces-link span {
+  color: #f5a623;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.atcoder-link span {
+  color: #4a9eff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.cp-links img {
+  display: block;
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
 }
